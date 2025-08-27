@@ -5,13 +5,11 @@ include(FetchContent)
 FetchContent_Declare(
     pybind11
     GIT_REPOSITORY https://github.com/pybind/pybind11
-    GIT_TAG        v2.2.3
+    GIT_TAG        v2.13.6
 )
 
-FetchContent_GetProperties(pybind11)
-if(NOT pybind11_POPULATED)
-    FetchContent_Populate(pybind11)
-    add_subdirectory(${pybind11_SOURCE_DIR} ${pybind11_BINARY_DIR})
-endif()
+# FetchContent_MakeAvailable handles both downloading and configuring the dependency.
+# It replaces both FetchContent_Populate() and add_subdirectory().
+FetchContent_MakeAvailable(pybind11)
 
 pybind11_add_module(${PROJECT_NAME} src/main.cpp)
